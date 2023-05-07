@@ -64,7 +64,7 @@ impl ReadStream {
         f64::from_le_bytes(self.read(8).try_into().expect("Failed to read double"))
     }
 
-    pub fn read_string_length(&mut self, length: usize) -> String {
+    pub fn read_string_len(&mut self, length: usize) -> String {
         self.read(length).into_iter().map(|v| v as char).collect()
     }
 

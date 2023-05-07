@@ -1,7 +1,10 @@
-use crate::enums::{
-    constant_instruction_type::{ConstantInstructionType, CONSTANT_INSTRUCTION_MAP},
-    instruction_type::{InstructionType, INSTRUCTION_TYPE_MAP},
-    opcode_type::{OpcodeType, OPCODE_TYPE_MAP},
+use crate::{
+    enums::{
+        constant_instruction_type::{ConstantInstructionType, CONSTANT_INSTRUCTION_MAP},
+        instruction_type::{InstructionType, INSTRUCTION_TYPE_MAP},
+        opcode_type::{OpcodeType, OPCODE_TYPE_MAP},
+    },
+    util::write_stream::WriteStream,
 };
 
 #[derive(Debug)]
@@ -45,5 +48,9 @@ impl Instruction {
         }
 
         new_self
+    }
+
+    pub fn serialize(&self, write_stream: &mut WriteStream) {
+        write_stream.write_int32(self.data);
     }
 }

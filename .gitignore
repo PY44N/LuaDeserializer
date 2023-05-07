@@ -2,3 +2,4 @@
 src/main.rs
 test.lua
 luac.out
+serialized.out

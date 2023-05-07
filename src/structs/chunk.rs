@@ -1,4 +1,4 @@
-use crate::util::read_stream::ReadStream;
+use crate::util::{read_stream::ReadStream, write_stream::WriteStream};
 
 use super::{constant::Constant, instruction::Instruction, local::Local};
 
@@ -47,6 +47,46 @@ impl Chunk {
             upvalues: (0..memory_stream.read_int())
                 .map(|_| memory_stream.read_string())
                 .collect(),
+        }
+    }
+
+    pub fn serialize(&self, write_stream: &mut WriteStream) {
+        write_stream.write_string(&self.source_name);
+        write_stream.write_int(self.line_defined);
+        write_stream.write_int(self.last_line_defined);
+        write_stream.write_int8(self.upvalue_count);
+        write_stream.write_int8(self.parameter_count);
+        write_stream.write_int8(self.vararg_flag);
+        write_stream.write_int8(self.max_stack_size);
+
+        write_stream.write_int(self.instructions.len() as u64);
+        for instruction in &self.instructions {
+            instruction.serialize(write_stream);
+        }
+
+        write_stream.write_int(self.constants.len() as u64);
+        for constant in &self.constants {
+            constant.serialize(write_stream);
+        }
+
+        write_stream.write_int(self.protos.len() as u64);
+        for proto in &self.protos {
+            proto.serialize(write_stream);
+        }
+
+        write_stream.write_int(self.source_lines.len() as u64);
+        for line in &self.source_lines {
+            write_stream.write_int(*line);
+        }
+
+        write_stream.write_int(self.locals.len() as u64);
+        for local in &self.locals {
+            local.serialize(write_stream);
+        }
+
+        write_stream.write_int(self.upvalues.len() as u64);
+        for upvalue in &self.upvalues {
+            write_stream.write_string(upvalue);
         }
     }
 }

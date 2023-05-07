@@ -1,4 +1,4 @@
-use crate::util::read_stream::ReadStream;
+use crate::util::{read_stream::ReadStream, write_stream::WriteStream};
 
 #[derive(Debug)]
 pub struct Local {
@@ -14,5 +14,11 @@ impl Local {
             start: memory_stream.read_int(),
             end: memory_stream.read_int(),
         }
+    }
+
+    pub fn serialize(&self, write_stream: &mut WriteStream) {
+        write_stream.write_string(&self.name);
+        write_stream.write_int(self.start);
+        write_stream.write_int(self.end);
     }
 }
