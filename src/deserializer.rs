@@ -1,3 +1,5 @@
+use std::{fs::File, io::{BufReader, Read}};
+
 use crate::{structs::chunk::Chunk, util::read_stream::ReadStream};
 
 pub struct Deserializer {
@@ -9,6 +11,15 @@ impl Deserializer {
         Self {
             memory_stream: ReadStream::new(bytes),
         }
+    }
+
+    pub fn from_file(file_name: &str) -> Self {
+    let mut reader = BufReader::new(File::open(file_name).unwrap());
+    let mut buffer = Vec::new();
+
+    reader.read_to_end(&mut buffer).unwrap();
+
+    Deserializer::new(buffer)
     }
 
     pub fn deserialize(&mut self) -> Chunk {
