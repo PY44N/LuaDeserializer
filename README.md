@@ -1,0 +1,1 @@
+A deserializer for Lua 5.1 binaries. Created for an upcoming Lua obfuscator 
