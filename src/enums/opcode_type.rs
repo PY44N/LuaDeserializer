@@ -1,5 +1,3 @@
-//I hate programming
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum OpcodeType {
     OpMove,
@@ -42,6 +40,7 @@ pub enum OpcodeType {
     OpVarArg,
 }
 
+// Map each Lua instruction to its type based on opcode number
 pub static OPCODE_TYPE_MAP: [OpcodeType; 38] = [
     OpcodeType::OpMove,
     OpcodeType::OpLoadConst,

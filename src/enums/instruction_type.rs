@@ -5,6 +5,7 @@ pub enum InstructionType {
     AsBx,
 }
 
+// Map each instruction to its type based on its opcode number
 pub static INSTRUCTION_TYPE_MAP: [InstructionType; 38] = [
     InstructionType::ABC,
     InstructionType::ABx,

@@ -6,6 +6,7 @@ pub enum ConstantInstructionType {
     OpArgU,
 }
 
+// Match each instruction to the constant values for its B and C registers based on opcode number
 pub static CONSTANT_INSTRUCTION_MAP: [(ConstantInstructionType, ConstantInstructionType); 38] = [
     (
         ConstantInstructionType::OpArgR,
