@@ -1,17 +1,8 @@
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum LuaType {
     NIL,
-    BOOLEAN,
+    BOOLEAN(bool),
     INVALID, //Who decided that this was a good idea?
-    NUMBER,
-    STRING,
+    NUMBER(f64),
+    STRING(String),
 }
-
-// Map each type based on index
-pub static LUA_TYPE_MAP: [LuaType; 5] = [
-    LuaType::NIL,
-    LuaType::BOOLEAN,
-    LuaType::INVALID,
-    LuaType::NUMBER,
-    LuaType::STRING,
-];
